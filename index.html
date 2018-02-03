@@ -72,7 +72,7 @@
     <article id="post-Experimental-Materials-and-Results-of-PERS-Metric" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2018/01/30/Experimental-Materials-and-Results-of-PERS-Metric/" class="article-date">
-  <time datetime="2018-01-30T06:38:43.000Z" itemprop="datePublished">2018-01-30</time>
+  <time datetime="2018-01-30T06:38:43.986Z" itemprop="datePublished">2018-01-30</time>
 </a>
     
   </div>
@@ -83,7 +83,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2018/01/30/Experimental-Materials-and-Results-of-PERS-Metric/">Experimental Materials and Results of PERS Metric</a>
+      <a class="article-title" href="/2018/01/30/Experimental-Materials-and-Results-of-PERS-Metric/">Experimental materials and results</a>
     </h1>
   
 
@@ -91,8 +91,32 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>Abstract:<br>Spectrum-based fault localization (SFL) techniques, which generally output a rank list of suspicious statements in descending order of their suspiciousness values, are initially proposed for assisting developers, and also extensively used in automated program repair tools in recent. Many evaluation metrics, including the common metric EXAM, have been introduced to evaluate and compare the effectiveness of SFL techniques. However, these metrics have one common limitation that they only focus on the rank of the faulty statement but ignore the accuracy of suspiciousness values, which can result in unfair comparison among SFL techniques.</p>
-<p>In this paper we propose a new metric PERS to evaluate the effectiveness of SFL techniques, and the metric is particularly suitable to evaluate SFL from the viewpoint of automated program repair, a new application platform for SFL techniques. Unlike the EXAM metric which emphasizes the absolute rank of the faulty statement, PERS draws more attention to the accuracy of suspiciousness value of the faulty statement, thus scoring the techniques in accordance with the original intention of SFL techniques. We compare our metric against EXAM using 6 SFL techniques and 22 real-life bugs from Defects4j. Experimental results present the evidence that PERS has higher discrimination ability than EXAM, and the SFL technique with higher PERS has more significant assisting aids in automated program repair.</p>
+        <h2 id="1-Introduction"><a href="#1-Introduction" class="headerlink" title="1.Introduction"></a>1.Introduction</h2><!-- [//]: <> (the background and our work) we have to introduce SFL techniques and limitations of existing evaluation metric for various fault localization techniques.
+and then descirbe our metric PERS and experiments on PERS, EXAM and NCP measurement. -->
+<!-- 注释  
+
+由于人们需要，缺陷定位技术出现，其中SFL被研究最为广泛。
+其后自动修复又出现了。SFL得到应用
+但是metric有限。有局限性
+
+所以我们推出了PERS。
+
+$$
+EXAM score = \frac{number of statements }{number of executable statements}
+NCP score = number of candidate patches generated before a valid patch is found
+PERS score = \frac{ the suspiciousness value of the faulty statement}{the sum of all suspiciousness values in the rank list}
+$$-->
+<p>Many automated fault localization (AFL) techniques have been extensively inverstigated to reduce the developers workload in debugging. One popular and promising catogory of AFL techniques is Spectrum-based Fault Localization (referred to as SFL), which generally produces a rank list of suspicious statements. In the last few years, SFL techniques have been introduced into the fault localization of automated program repair for localizing faults. To evaluate the effectiveness of various SFL techniques, many evaluation metrics, including the commonly used metric EXAM, have been proporsed. However, these metrics have one common limitation that they only focus on the rank of the faulty statement but ignore the accuracy of suspiciousness values, which may cause unfair comparison among SFL techniques. Therefore, they loss part of the information provided by localization technqiues. Take two SFL techniques A and B for example, for the same buggy program, the rank list produced by A is:<br>RankListA = {(4, 0.9), (7, 0.80), (3, 0.70), (1, 0.6), … }<br>The rank list produced by B is:<br>RankListB = {(4, 0.8), (7, 0.75), (3, 0.73), (1, 0.1), … }<br>where each ordered repair in the rank list records the information of a suspicious statement. The former of the ordered pair indicates the location ID of the statement, and the latter is the relevant suspiciousness.<br>Judged by EXAM, A and B reach the same performance in localizing this buggy program, but it is obvious that B has shown better accuracy of suspiciousness values, as it increases the suspiciousness of the faulty statement while decreasing that of non-faulty statements compared to A. Therefore, EXAM fails to describe the different performance between A and B as it discards accurate suspiciousness of statements. </p>
+<p>Furthermore, these metrics may have a negative impact on the development of SFL techniques. Recall the original definition of suspiciousness: the risk/likelihood of being faulty for a statement. However, Many researchers developed fault localization techniques just for rank and ignored the accuracy of suspiciousness, which deviates from the definition of suspiciousness. For example, Wong3 and Op2 produce negative suspiciousness for some statements, and DStar outputs ‘infinite’ values when scoring statements in some buggy programs.</p>
+<p>To address the limitations of existing evaluation metrics, we propose a new metric PERS for evaluating and comparing various SFL techniques, and PERS is particularly suitable to evaluate SFL in the context of automated program repair. We perform experiments on 6 SFL techniques and 22 real-world buggy programs from Defects4J by using the novel automated prorgam repair tool Nopol to verify the feasibility and effectiveness of PERS. Our experimental results suggest that PERS has higher discrimination ability than EXAM, and the SFL technique with higher PERS has more signifcant assisting aids in automated program repair.</p>
+<h2 id="2-Experimental-Design"><a href="#2-Experimental-Design" class="headerlink" title="2.Experimental Design"></a>2.Experimental Design</h2><p>There are three metrics involved in the experiments: EXAM, NCP, PERS.<br><!-- > * --><br>EXAM is the percentage of statements to be examined until the faulty statement is found. It is commonly used and is a representative of existing evaluation metrics which only focus on the rank of the faulty statement.</p>
+<p>NCP is the number of generated patches before a valid patch is found in the repair process. It is an effective measurement to evaluate SFL techniques in automated program repair, but it is limited by the time cost of automated repair on buggy programs, as at least 100 independent automated repair runs are required for each buggy program which may indicate high time cost.</p>
+<p>PERS is the percentage of suspiciousness value of the faulty statement in the rank list. It is the new metric proposed in this paper and focuses on the accurate suspiciousness of the faulty statement.</p>
+<p>We selected Nopol, a novel repair tool for repairing conditional bugs in Java programs, as our experimental tools. Then, we implemented SFA-based Nopol by modifying the RFA-based <a href="https://github.com/SpoonLabs/nopol" target="_blank" rel="noopener">Nopol</a> (The importance of SFA for automated program repair techniques is demonstrated in our paper). Considering the time cost of automated program repair, we chose 22 real-life bugs, for which valid patches can be generated when repaired by Nopol, from 103 bugs of Defects4J. With respect to SFL techniques, we selected Barinel, Ochiai, Op2, Tarantula and DStar as experimental SFL, because these 5 techniques are popular and well studied in prior studies using EXAM metric. Also, we include Jaccard as it reaches the best performance in the previous study using NCP measurement. As the experiment was conducted in the context of automated program repair, we used the statement, which was modified to generate plausible patch in the repairing process, as the faulty statement. </p>
+<p>To verify whether PERS has better discrimination ability than EXAM, we used SFA-based Nopol versions which implemented 6 SFL respectively to repair 22 bugs once to collect the results of PERS and EXAM. In addition, for the purpose of verifying if the automated repair tool with SFL technique having higher PERS has better effectiveness, we performed 100 independent repairing runs for each buggy program and SFL technique to collect the results of NCP based on SFA-based Nopol.</p>
+<h2 id="3-Results"><a href="#3-Results" class="headerlink" title="3.Results"></a>3.Results</h2><p>Based on the result data and relevant analysis, we have two findings:<br>1) Compared to EXAM, PERS reaches better performance in distinguishing different SFL techniques.<br>2) The automated repair tool implementing SFL technique with higher PERS reaches lower NCP in 100 independent repairing trials, and thus achieves better effectiveness in automated repair.<br>Obviously, PERS has shown more advantages over EXAM, especially in the context of automated program repair. Based on these promising findings, PERS can be used to instruct the development of fault localization techniques to focus more on the accuracy of the suspiciousness value of the faulty statement, which can also benefit automated program repair.</p>
+<h2 id="4-Links-of-matrials-and-results"><a href="#4-Links-of-matrials-and-results" class="headerlink" title="4.Links of matrials and results."></a>4.Links of matrials and results.</h2><p>To implement SFA-based Nopol, we first convert all suspiciousness values in the rank list of suspicious statements into probabilities based on the current version of <a href="https://github.com/SpoonLabs/nopol" target="_blank" rel="noopener">Nopol</a>. Then we select one statement from the rank list each time randomly according to their probability. In addition, we make some modifications for outputing necessary infomation. The source code of SFA-based Nopol is: </p>
+<p>The experimental </p>
 
       
     </div>
@@ -183,7 +207,7 @@
       <ul>
         
           <li>
-            <a href="/2018/01/30/Experimental-Materials-and-Results-of-PERS-Metric/">Experimental Materials and Results of PERS Metric</a>
+            <a href="/2018/01/30/Experimental-Materials-and-Results-of-PERS-Metric/">Experimental materials and results</a>
           </li>
         
           <li>
