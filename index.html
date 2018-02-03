@@ -83,7 +83,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2018/01/30/Experimental-Materials-and-Results-of-PERS-Metric/">Experimental materials and results</a>
+      <a class="article-title" href="/2018/01/30/Experimental-Materials-and-Results-of-PERS-Metric/">Experimental materials and results of PERS metric</a>
     </h1>
   
 
@@ -115,8 +115,8 @@ $$-->
 <p>We selected Nopol, a novel repair tool for repairing conditional bugs in Java programs, as our experimental tools. Then, we implemented SFA-based Nopol by modifying the RFA-based <a href="https://github.com/SpoonLabs/nopol" target="_blank" rel="noopener">Nopol</a> (The importance of SFA for automated program repair techniques is demonstrated in our paper). Considering the time cost of automated program repair, we chose 22 real-life bugs, for which valid patches can be generated when repaired by Nopol, from 103 bugs of Defects4J. With respect to SFL techniques, we selected Barinel, Ochiai, Op2, Tarantula and DStar as experimental SFL, because these 5 techniques are popular and well studied in prior studies using EXAM metric. Also, we include Jaccard as it reaches the best performance in the previous study using NCP measurement. As the experiment was conducted in the context of automated program repair, we used the statement, which was modified to generate plausible patch in the repairing process, as the faulty statement. </p>
 <p>To verify whether PERS has better discrimination ability than EXAM, we used SFA-based Nopol versions which implemented 6 SFL respectively to repair 22 bugs once to collect the results of PERS and EXAM. In addition, for the purpose of verifying if the automated repair tool with SFL technique having higher PERS has better effectiveness, we performed 100 independent repairing runs for each buggy program and SFL technique to collect the results of NCP based on SFA-based Nopol.</p>
 <h2 id="3-Results"><a href="#3-Results" class="headerlink" title="3.Results"></a>3.Results</h2><p>Based on the result data and relevant analysis, we have two findings:<br>1) Compared to EXAM, PERS reaches better performance in distinguishing different SFL techniques.<br>2) The automated repair tool implementing SFL technique with higher PERS reaches lower NCP in 100 independent repairing trials, and thus achieves better effectiveness in automated repair.<br>Obviously, PERS has shown more advantages over EXAM, especially in the context of automated program repair. Based on these promising findings, PERS can be used to instruct the development of fault localization techniques to focus more on the accuracy of the suspiciousness value of the faulty statement, which can also benefit automated program repair.</p>
-<h2 id="4-Links-of-matrials-and-results"><a href="#4-Links-of-matrials-and-results" class="headerlink" title="4.Links of matrials and results."></a>4.Links of matrials and results.</h2><p>To implement SFA-based Nopol, we first convert all suspiciousness values in the rank list of suspicious statements into probabilities based on the current version of <a href="https://github.com/SpoonLabs/nopol" target="_blank" rel="noopener">Nopol</a>. Then we select one statement from the rank list each time randomly according to their probability. In addition, we make some modifications for outputing necessary infomation. The source code of SFA-based Nopol is: </p>
-<p>The experimental </p>
+<h2 id="4-Links-of-experimental-matrials-and-results"><a href="#4-Links-of-experimental-matrials-and-results" class="headerlink" title="4.Links of experimental matrials and results."></a>4.Links of experimental matrials and results.</h2><p>To implement SFA-based Nopol, we first convert all suspiciousness values in the rank list of suspicious statements into probabilities based on the current version of <a href="https://github.com/SpoonLabs/nopol" target="_blank" rel="noopener">Nopol</a>. Then we select one statement from the rank list each time randomly according to their probability. In addition, we make some modifications for outputing necessary infomation. The source code of SFA-based Nopol is: </p>
+<p>The experimental results of PERS, EXAM and NCP are available at:</p>
 
       
     </div>
@@ -141,19 +141,9 @@ $$-->
   <div class="article-inner">
     
     
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/01/30/hello-world/">Hello World</a>
-    </h1>
-  
-
-      </header>
-    
     <div class="article-entry" itemprop="articleBody">
       
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
+        <h2 id="lt-–"><a href="#lt-–" class="headerlink" title="&lt;!– "></a>&lt;!– </h2><h2 id="title-Hello-World"><a href="#title-Hello-World" class="headerlink" title="title: Hello World"></a>title: Hello World</h2><p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
 <h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
 <p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
 <h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
@@ -161,7 +151,7 @@ $$-->
 <h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
 <p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
 <h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a><br>–&gt;</p>
 
       
     </div>
@@ -207,11 +197,11 @@ $$-->
       <ul>
         
           <li>
-            <a href="/2018/01/30/Experimental-Materials-and-Results-of-PERS-Metric/">Experimental materials and results</a>
+            <a href="/2018/01/30/Experimental-Materials-and-Results-of-PERS-Metric/">Experimental materials and results of PERS metric</a>
           </li>
         
           <li>
-            <a href="/2018/01/30/hello-world/">Hello World</a>
+            <a href="/2018/01/30/hello-world/">(no title)</a>
           </li>
         
       </ul>
