@@ -52,9 +52,9 @@
       </nav>
       <nav id="sub-nav">
         
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+        <a id="nav-search-btn" class="nav-icon" title="Buscar"></a>
       </nav>
       <div id="search-form-wrap">
         <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
@@ -102,7 +102,7 @@ EXAM score = \frac{number of statements }{number of executable statements}
 NCP score = number of candidate patches generated before a valid patch is found
 PERS score = \frac{ the suspiciousness value of the faulty statement}{the sum of all suspiciousness values in the rank list}
 $$-->
-<font size="4" face="Times New Roman"><br>As a promising category of automated fault localization techniques, Spectrum-based Fault Localization (referred to as SFL) have been extensively investigated in both manual debugging and automated program repair. To evaluate the effectiveness of various SFL techniques, many evaluation metrics, including the commonly used metric EXAM, have been proposed. However, these metrics have one common limitation that they only focus on the rank of the faulty statement but ignore the accuracy of suspiciousness values, which may cause unfair comparison among SFL techniques. Therefore, they loss part of the information provided by localization techniques. Take two SFL techniques A and B for example, for the same buggy program, the rank list produced by A is:<br><p align="center">RankListA = {(4, 0.9), (7, 0.80), (3, 0.70), (1, 0.6), … } </p><br>The rank list produced by B is:<br><p align="center">RankListB = {(4, 0.8), (7, 0.75), (3, 0.73), (1, 0.1), … }</p><br>where each ordered repair in the rank list records the information of a suspicious statement. The former of the ordered pair indicates the location ID of the statement, and the latter is the relevant suspiciousness.<br><br>Judged by EXAM, A and B reach the same performance in localizing this buggy program, but it is obvious that B shows better accuracy of suspiciousness values, as it increases the suspiciousness of the faulty statement while decreasing that of non-faulty statements compared to A. Therefore, EXAM fails to describe the different performance between A and B as it discards accurate suspiciousness of statements.<br><br>Furthermore, these metrics may have a negative impact on the development of SFL techniques. Recall the original definition of suspiciousness: the risk/likelihood of being faulty for a statement. However, many researchers developed fault localization techniques just for rank and ignored the accuracy of suspiciousness, which deviates from the definition of suspiciousness. For example, Wong3 and Op2 produce negative suspiciousness for some statements, and DStar outputs ‘infinite’ values when scoring statements in some buggy programs.<br><br>To address the limitations of existing evaluation metrics, we propose a new metric PERS for evaluating and comparing various SFL techniques, and PERS is particularly suitable to evaluate SFL in the context of automated program repair. We perform experiments on 6 SFL techniques and 22 real-world buggy programs from Defects4J by using the novel automated program repair tool Nopol to verify the feasibility and effectiveness of PERS. Our experimental results suggest that PERS has higher discrimination ability than EXAM, and the SFL technique with higher PERS has more significant assisting aids in automated program repair.<br></font>
+<font size="4" face="Times New Roman"><br>As a promising category of automated fault localization techniques, Spectrum-based Fault Localization (referred to as SFL) has been extensively investigated in both manual debugging and automated program repair. To evaluate the effectiveness of various SFL techniques, many evaluation metrics, including the commonly used metric EXAM, have been proposed. However, these metrics have one common limitation that they only focus on the rank of the faulty statement but ignore the accuracy of suspiciousness values, which may cause unfair comparison among SFL techniques. Therefore, they loss part of the information provided by localization techniques. Take two SFL techniques A and B for example, for the same buggy program, the rank list produced by A is:<br><p align="center">RankListA = {(4, 0.9), (7, 0.80), (3, 0.70), (1, 0.6), … } </p><br>The rank list produced by B is:<br><p align="center">RankListB = {(4, 0.8), (7, 0.75), (3, 0.73), (1, 0.1), … }</p><br>where each ordered repair in the rank list records the information of a suspicious statement. The former of the ordered pair indicates the location ID of the statement, and the latter is the relevant suspiciousness.<br><br>Judged by EXAM, A and B reach the same performance in localizing this buggy program, but it is obvious that B shows better accuracy of suspiciousness values, as it increases the suspiciousness of the faulty statement while decreasing that of non-faulty statements compared to A. Therefore, EXAM fails to describe the different performance between A and B as it discards accurate suspiciousness of statements.<br><br>Furthermore, these metrics may have a negative impact on the development of SFL techniques. Recall the original definition of suspiciousness: the risk/likelihood of being faulty for a statement. However, many researchers developed fault localization techniques just for rank and ignored the accuracy of suspiciousness, which deviates from the definition of suspiciousness. For example, Wong3 and Op2 produce negative suspiciousness for some statements, and DStar outputs ‘infinite’ values when scoring statements in some buggy programs.<br><br>To address the limitations of existing evaluation metrics, we propose a new metric PERS for evaluating and comparing various SFL techniques, and PERS is particularly suitable to evaluate SFL in the context of automated program repair. We perform experiments on 6 SFL techniques and 22 real-world buggy programs from Defects4J by using the novel automated program repair tool Nopol to verify the feasibility and effectiveness of PERS. Our experimental results suggest that PERS has higher discrimination ability than EXAM, and the SFL technique with higher PERS has more significant assisting aids in automated program repair.<br></font>
 
 <h2 id="2-Experimental-Design"><a href="#2-Experimental-Design" class="headerlink" title="2.Experimental Design"></a>2.Experimental Design</h2><font size="4" face="Times New Roman"><br>There are three metrics involved in the experiments: EXAM, NCP, PERS.<br>1)EXAM is the percentage of statements to be examined until the faulty statement is found. It is commonly used and is a representative of existing evaluation metrics which only focus on the rank of the faulty statement.<br>2)NCP is the number of generated patches before a valid patch is found in the repair process. It is an effective measurement to evaluate SFL techniques in automated program repair, but it is limited by the time cost of automated repair on buggy programs, as at least 100 independent automated repair runs are required for each buggy program which may indicate high time cost.<br>3)PERS is the percentage of suspiciousness value of the faulty statement in the rank list. It is the new metric proposed in this paper and focuses on the accurate suspiciousness of the faulty statement.<br><br>We selected Nopol, a novel repair tool for repairing conditional bugs in Java programs, as our experimental tools. Then, we implemented SFA-based Nopol by modifying the RFA-based Nopol (The importance of SFA for automated program repair techniques is demonstrated in our paper). Considering the time cost of automated program repair, we chose 22 real-life bugs, for which valid patches can be generated when repaired by Nopol, from 103 bugs of Defects4J. With respect to SFL techniques, we selected Barinel, Ochiai, Op2, Tarantula and DStar as experimental SFL, because these 5 techniques are popular and well studied in prior studies using EXAM metric. Also, we include Jaccard as it reaches the best performance in the previous study using NCP measurement. As the experiment was conducted in the context of automated program repair, we used the statement, which was modified to generate plausible patch in the repairing process, as the faulty statement.<br><br>To verify whether PERS has better discrimination ability than EXAM, we used SFA-based Nopol versions which implemented 6 SFL respectively to repair 22 bugs once to collect the results of PERS and EXAM. In addition, for the purpose of verifying if the automated repair tool with SFL technique having higher PERS has better effectiveness, we performed 100 independent repairing runs for each buggy program and SFL technique to collect the results of NCP based on SFA-based Nopol.<br></font>
 
@@ -112,7 +112,7 @@ $$-->
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/01/30/Experimental-Materials-and-Results-of-PERS-Metric/" data-id="cjd19wemt0000kgqqasrxfp6s" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/01/30/Experimental-Materials-and-Results-of-PERS-Metric/" data-id="cjd19wemt0000kgqqasrxfp6s" class="article-share-link">Compartir</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Evaluation-metric-Fault-localization-Automated-program-repair/">Evaluation metric, Fault localization, Automated program repair</a></li></ul>
@@ -145,7 +145,7 @@ $$-->
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Tag Cloud</h3>
+    <h3 class="widget-title">Nube de Tags</h3>
     <div class="widget tagcloud">
       <a href="/tags/Evaluation-metric-Fault-localization-Automated-program-repair/" style="font-size: 10px;">Evaluation metric, Fault localization, Automated program repair</a>
     </div>
@@ -154,7 +154,7 @@ $$-->
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
+    <h3 class="widget-title">Archivos</h3>
     <div class="widget">
       <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li></ul>
     </div>
@@ -164,7 +164,7 @@ $$-->
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
+    <h3 class="widget-title">Posts recientes</h3>
     <div class="widget">
       <ul>
         
@@ -185,7 +185,7 @@ $$-->
   <div class="outer">
     <div id="footer-info" class="inner">
       &copy; 2018 daleyang<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      Construido por <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
 </footer>
